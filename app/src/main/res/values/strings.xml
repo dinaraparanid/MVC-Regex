@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MVC_Regex</string>
+    <string name="text_input_hint">Text Input</string>
+    <string name="regex_input_hint">Regex Input</string>
+    <string name="take_input_hint">Max number of strings</string>
+    <string name="matches">Matches</string>
+    <string name="matches_found">Matches found: %1$d</string>
+    <string name="text_input_error">Only russian/english letters, numbers, separators</string>
+    <string name="regex_input_error">Not valid regular expression</string>
+    <string name="take_input_error">Not valid number</string>
+</resources>
