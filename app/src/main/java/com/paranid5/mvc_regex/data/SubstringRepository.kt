@@ -2,7 +2,7 @@ package com.paranid5.mvc_regex.data
 
 import com.paranid5.mvc_regex.FULL_TAKE
 
-class SubstringRepository {
+object SubstringRepository {
     private var matches = listOf<SubstringModel>()
     private var take = 0
 

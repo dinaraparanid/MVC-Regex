@@ -8,10 +8,6 @@ private val ENGLISH_OR_DIGITS = Regex("[a-zA-Zа-яА-Я0-9,.;\\-\\s]*")
 const val FULL_TAKE = -1
 
 class MainActivityViewModel : ViewModel() {
-    private val substringRepository by lazy {
-        SubstringRepository()
-    }
-
     private var textInput = ""
 
     fun validateAndStoreTextInput(
@@ -57,8 +53,8 @@ class MainActivityViewModel : ViewModel() {
         if (isErrorInInput) hasErrorInInput else false
 
     infix fun matchSubstringsAndRevalidate(activity: MainActivity) {
-        substringRepository.matchSubstrings(take, regex, textInput)
-        activity revalidateMatches substringRepository
+        SubstringRepository.matchSubstrings(take, regex, textInput)
+        activity.revalidateMatches()
     }
 }
 

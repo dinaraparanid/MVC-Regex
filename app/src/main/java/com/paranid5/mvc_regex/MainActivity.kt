@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
         initViews()
     }
 
-    infix fun revalidateMatches(substringRepository: SubstringRepository) {
-        val (matchesList, totalMatches) = substringRepository.matchedSubstringsAndTotal
+    fun revalidateMatches() {
+        val (matchesList, totalMatches) = SubstringRepository.matchedSubstringsAndTotal
         matchesAdapter submitList matchesList
         matchesFound.text = getString(R.string.matches_found, totalMatches)
     }
