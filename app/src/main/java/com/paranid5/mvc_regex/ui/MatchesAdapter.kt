@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.paranid5.mvc_regex.DiffCallback
 import com.paranid5.mvc_regex.R
 import com.paranid5.mvc_regex.data.SubstringModel
 
@@ -45,3 +45,12 @@ class MatchesAdapter : RecyclerView.Adapter<MatchesAdapter.MatchesViewHolder>() 
         }
     }
 }
+
+private fun DiffCallback() =
+    object : DiffUtil.ItemCallback<SubstringModel>() {
+        override fun areItemsTheSame(oldItem: SubstringModel, newItem: SubstringModel) =
+            oldItem == newItem
+
+        override fun areContentsTheSame(oldItem: SubstringModel, newItem: SubstringModel) =
+            oldItem == newItem
+    }
