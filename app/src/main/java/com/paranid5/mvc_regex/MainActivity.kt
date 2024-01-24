@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.paranid5.mvc_regex.data.SubstringRepository
 import com.paranid5.mvc_regex.ui.FindButton
 import com.paranid5.mvc_regex.ui.MatchesAdapter
 import com.paranid5.mvc_regex.ui.MatchesFound
@@ -42,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         initViews()
     }
 
-    fun revalidateMatches(matchesList: List<SubstringModel>, totalMatches: Int) {
+    infix fun revalidateMatches(substringRepository: SubstringRepository) {
+        val (matchesList, totalMatches) = substringRepository.matchedSubstringsAndTotal
         matchesAdapter submitList matchesList
         matchesFound.text = getString(R.string.matches_found, totalMatches)
     }

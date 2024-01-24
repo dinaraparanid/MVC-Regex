@@ -1,12 +1,17 @@
 package com.paranid5.mvc_regex
 
 import androidx.lifecycle.ViewModel
+import com.paranid5.mvc_regex.data.SubstringRepository
 
 private val ENGLISH_OR_DIGITS = Regex("[a-zA-Zа-яА-Я0-9,.;\\-\\s]*")
 
-private const val FULL_TAKE = -1
+const val FULL_TAKE = -1
 
 class MainActivityViewModel : ViewModel() {
+    private val substringRepository by lazy {
+        SubstringRepository()
+    }
+
     private var textInput = ""
 
     fun validateAndStoreTextInput(
@@ -51,20 +56,9 @@ class MainActivityViewModel : ViewModel() {
     private fun updatedErrorState(isErrorInInput: Boolean): Boolean =
         if (isErrorInInput) hasErrorInInput else false
 
-    private var matches = listOf<SubstringModel>()
-
     infix fun matchSubstringsAndRevalidate(activity: MainActivity) {
-        fun takeMatches(): List<SubstringModel> =
-            matches.let { if (take == FULL_TAKE) it else it.take(take) }
-
-        matches = regex
-            .findAll(textInput)
-            .flatMap { it.groupValues }
-            .filter { it.isNotBlank() }
-            .mapIndexed { index, match -> SubstringModel(match, index) }
-            .toList()
-
-        activity.revalidateMatches(takeMatches(), matches.size)
+        substringRepository.matchSubstrings(take, regex, textInput)
+        activity revalidateMatches substringRepository
     }
 }
 
