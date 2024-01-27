@@ -1,8 +1,12 @@
 package com.paranid5.mvc_regex.data
 
-import com.paranid5.mvc_regex.FULL_TAKE
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object SubstringRepository {
+const val FULL_TAKE = -1
+
+@Singleton
+class SubstringRepository @Inject constructor() {
     private var matches = listOf<SubstringModel>()
     private var take = 0
 

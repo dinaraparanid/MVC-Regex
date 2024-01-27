@@ -8,50 +8,36 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.paranid5.mvc_regex.MainActivity
-import com.paranid5.mvc_regex.MainActivityViewModel
+import com.paranid5.mvc_regex.MainPresenter
 import com.paranid5.mvc_regex.R
 
-fun MainActivity.TextInput(viewModel: MainActivityViewModel): EditText =
+fun MainActivity.TextInput(presenter: MainPresenter): EditText =
     findViewById<TextInputEditText>(R.id.text_input).apply {
         addTextChangedListener {
-            val isOk = viewModel.validateAndStoreTextInput(
-                text = it?.toString() ?: "",
-                activity = this@TextInput
-            )
-
+            val isOk = presenter.validateAndStoreTextInput(it?.toString() ?: "")
             if (!isOk) error = getString(R.string.text_input_error)
         }
     }
 
-fun MainActivity.RegexInput(viewModel: MainActivityViewModel): EditText =
+fun MainActivity.RegexInput(presenter: MainPresenter): EditText =
     findViewById<TextInputEditText>(R.id.regex_input).apply {
         addTextChangedListener {
-            val isOk = viewModel.validateAndStoreRegexInput(
-                regex = it?.toString() ?: ".*",
-                activity = this@RegexInput
-            )
-
+            val isOk = presenter.validateAndStoreRegexInput(it?.toString() ?: ".*")
             if (!isOk) error = getString(R.string.regex_input_error)
         }
     }
 
-fun MainActivity.TakeInput(viewModel: MainActivityViewModel): EditText =
+fun MainActivity.TakeInput(presenter: MainPresenter): EditText =
     findViewById<TextInputEditText>(R.id.take_input).apply {
         addTextChangedListener {
-            val isOk = viewModel.validateAndSetTakeInput(
-                take = it?.toString() ?: "",
-                activity = this@TakeInput
-            )
-
+            val isOk = presenter.validateAndStoreTakeInput(it?.toString() ?: "")
             if (!isOk) error = getString(R.string.take_input_error)
         }
     }
 
-fun MainActivity.FindButton(viewModel: MainActivityViewModel): Button =
+fun MainActivity.FindButton(presenter: MainPresenter): Button =
     findViewById<Button>(R.id.find_button).apply {
-        setOnClickListener {
-            viewModel matchSubstringsAndRevalidate this@FindButton
-        }
+        setOnClickListener { presenter.matchSubstringsAndRevalidate() }
     }
 
 context(MainActivity)
