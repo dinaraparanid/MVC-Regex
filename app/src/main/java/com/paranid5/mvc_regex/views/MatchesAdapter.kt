@@ -1,4 +1,4 @@
-package com.paranid5.mvc_regex.ui
+package com.paranid5.mvc_regex.views
 
 import android.view.LayoutInflater
 import android.view.View

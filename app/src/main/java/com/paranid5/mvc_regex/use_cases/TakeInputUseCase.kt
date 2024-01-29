@@ -1,9 +1,12 @@
 package com.paranid5.mvc_regex.use_cases
 
-import com.paranid5.mvc_regex.data.FULL_TAKE
 import javax.inject.Inject
 
 class TakeInputUseCase @Inject constructor() {
+    companion object {
+        const val FULL_TAKE = -1
+    }
+
     private var takeInput = ""
 
     var hasErrorInInput = false

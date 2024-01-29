@@ -1,7 +1,7 @@
 package com.paranid5.mvc_regex
 
-import com.paranid5.mvc_regex.data.SubstringRepository
 import com.paranid5.mvc_regex.di.ErrorUseCaseFactory
+import com.paranid5.mvc_regex.use_cases.MatchSubstringsUseCase
 import com.paranid5.mvc_regex.use_cases.RegexInputUseCase
 import com.paranid5.mvc_regex.use_cases.TakeInputUseCase
 import com.paranid5.mvc_regex.use_cases.TextInputUseCase
@@ -12,8 +12,8 @@ class MainPresenter @Inject constructor(
     private val textInputUseCase: TextInputUseCase,
     private val regexInputUseCase: RegexInputUseCase,
     private val takeInputUseCase: TakeInputUseCase,
+    private val matchSubstringsUseCase: MatchSubstringsUseCase,
     private val errorUseCaseFactory: ErrorUseCaseFactory,
-    private val repository: SubstringRepository
 ) : MvpPresenter<MainView>() {
     private val errorUseCase by lazy {
         errorUseCaseFactory.create(
@@ -51,8 +51,12 @@ class MainPresenter @Inject constructor(
             .also { updateErrorStateWithButton() }
 
     fun matchSubstringsAndRevalidate() {
-        repository.matchSubstrings(take, regex, textInput)
-        val (matchedList, totalMatches) = repository.matchedSubstringsAndTotal
+        val (matchedList, totalMatches) = matchSubstringsUseCase.matchSubstrings(
+            takeSubstrings = take,
+            regex = regex,
+            textInput = textInput
+        )
+
         viewState.revalidateMatches(matchedList, totalMatches)
     }
 
