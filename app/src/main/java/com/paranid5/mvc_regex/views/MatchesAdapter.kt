@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.paranid5.mvc_regex.R
-import com.paranid5.mvc_regex.data.SubstringModel
+import com.paranid5.mvc_regex.domain.SubstringModel
 
 class MatchesAdapter : RecyclerView.Adapter<MatchesAdapter.MatchesViewHolder>() {
     private val differ = AsyncListDiffer(this, DiffCallback())

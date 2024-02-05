@@ -8,7 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.paranid5.mvc_regex.data.SubstringModel
+import com.paranid5.mvc_regex.domain.SubstringModel
 import com.paranid5.mvc_regex.views.FindButton
 import com.paranid5.mvc_regex.views.MatchesAdapter
 import com.paranid5.mvc_regex.views.MatchesFound

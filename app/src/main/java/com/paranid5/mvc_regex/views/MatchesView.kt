@@ -8,11 +8,19 @@ import com.paranid5.mvc_regex.R
 context(MainActivity)
 fun MatchesView(matchesAdapter: MatchesAdapter): RecyclerView =
     findViewById<RecyclerView>(R.id.matches_view).apply {
-        adapter = matchesAdapter
+        adapter = matchesAdapter.apply {
+            stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        }
 
         layoutManager = LinearLayoutManager(context).apply {
             orientation = LinearLayoutManager.VERTICAL
         }
 
-        addItemDecoration(PaddingItemDecorator(horizontalPadding = 10))
+        addItemDecoration(
+            PaddingItemDecorator(
+                horizontalPadding = resources
+                    .getDimension(R.dimen.recycler_view_item_padding)
+                    .toInt()
+            )
+        )
     }

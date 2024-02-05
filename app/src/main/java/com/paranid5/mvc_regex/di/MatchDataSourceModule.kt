@@ -1,7 +1,7 @@
 package com.paranid5.mvc_regex.di
 
-import com.paranid5.mvc_regex.data.SubstringRepository
-import com.paranid5.mvc_regex.data.SubstringRepositoryImpl
+import com.paranid5.mvc_regex.data.MatchDataSource
+import com.paranid5.mvc_regex.data.MatchDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -10,8 +10,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface SubstringRepositoryModule {
+interface MatchDataSourceModule {
     @Binds
     @Singleton
-    fun bindSubstringRepository(repositoryImpl: SubstringRepositoryImpl): SubstringRepository
+    fun bindMatchDataSource(repositoryImpl: MatchDataSourceImpl): MatchDataSource
 }

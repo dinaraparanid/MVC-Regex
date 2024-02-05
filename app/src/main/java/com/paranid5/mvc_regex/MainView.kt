@@ -1,6 +1,6 @@
 package com.paranid5.mvc_regex
 
-import com.paranid5.mvc_regex.data.SubstringModel
+import com.paranid5.mvc_regex.domain.SubstringModel
 import moxy.MvpView
 import moxy.viewstate.strategy.alias.AddToEndSingle
 
