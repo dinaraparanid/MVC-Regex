@@ -13,23 +13,29 @@ class InputInteractor @Inject constructor(
     private val takeInputUseCase: TakeInputUseCase,
     private val matchSubstringsUseCase: MatchSubstringsUseCase,
 ) {
-    fun validateAndSetTextInput(text: String): Boolean =
+    fun validateAndStoreTextInput(text: String): Boolean =
         textInputUseCase.validateAndSetTextInput(text)
 
     private inline val textHasError: Boolean
         get() = textInputUseCase.hasErrorInInput
 
-    fun validateAndSetRegexInput(regex: String): Boolean =
+    fun validateAndStoreRegexInput(regex: String): Boolean =
         regexInputUseCase.validateAndSetRegexInput(regex)
 
     private inline val regexHasError: Boolean
         get() = regexInputUseCase.hasErrorInInput
 
-    fun validateAndSetTakeInput(take: String): Boolean =
+    fun validateAndStoreTakeInput(take: String): Boolean =
         takeInputUseCase.validateAndSetTakeInput(take)
 
-    fun matchSubstrings(): Pair<List<SubstringModel>, Int> =
-        matchSubstringsUseCase.matchSubstrings()
+    val shownMatchesList: List<SubstringModel>
+        get() = matchSubstringsUseCase.shownMatchesList
+
+    val totalMatches: Int
+        get() = matchSubstringsUseCase.totalMatches
+
+    fun matchSubstrings(): Unit =
+        matchSubstringsUseCase.matchAndStoreSubstrings()
 
     private inline val takeHasError: Boolean
         get() = takeInputUseCase.hasErrorInInput

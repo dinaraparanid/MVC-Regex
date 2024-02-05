@@ -1,5 +1,6 @@
 package com.paranid5.mvc_regex
 
+import com.paranid5.mvc_regex.domain.SubstringModel
 import moxy.MvpPresenter
 import javax.inject.Inject
 
@@ -11,24 +12,33 @@ class MainPresenter @Inject constructor(
 
     fun validateAndStoreTextInput(text: String): Boolean =
         inputInteractor
-            .validateAndSetTextInput(text)
+            .validateAndStoreTextInput(text)
             .also { updateErrorStateWithButton() }
 
     fun validateAndStoreRegexInput(regex: String): Boolean =
         inputInteractor
-            .validateAndSetRegexInput(regex)
+            .validateAndStoreRegexInput(regex)
             .also { updateErrorStateWithButton() }
 
     fun validateAndStoreTakeInput(take: String): Boolean =
         inputInteractor
-            .validateAndSetTakeInput(take)
+            .validateAndStoreTakeInput(take)
             .also { updateErrorStateWithButton() }
 
     fun matchSubstringsAndRevalidate() {
-        val (matchedList, totalMatches) = inputInteractor.matchSubstrings()
-        viewState.revalidateMatches(matchedList, totalMatches)
+        inputInteractor.matchSubstrings()
+        updateMatches()
     }
 
-    private fun updateErrorStateWithButton() =
+    private inline val shownMatchesList: List<SubstringModel>
+        get() = inputInteractor.shownMatchesList
+
+    private inline val totalMatches: Int
+        get() = inputInteractor.totalMatches
+
+    private fun updateErrorStateWithButton(): Unit =
         viewState.revalidateButtonEnabled(!hasErrorInInput)
+
+    fun updateMatches(): Unit =
+        viewState.revalidateMatches(shownMatchesList, totalMatches)
 }

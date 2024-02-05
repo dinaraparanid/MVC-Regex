@@ -66,7 +66,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         findButton = FindButton(presenter)
         matchesView = MatchesView(matchesAdapter)
         matchesFound = MatchesFound()
+        initMatches()
     }
+
+    private fun initMatches(): Unit =
+        presenter.updateMatches()
 }
 
 private fun MainActivity.applyInsets() =
