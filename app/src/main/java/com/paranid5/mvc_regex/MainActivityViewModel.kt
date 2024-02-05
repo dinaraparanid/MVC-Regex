@@ -1,60 +1,123 @@
 package com.paranid5.mvc_regex
 
 import androidx.lifecycle.ViewModel
-import com.paranid5.mvc_regex.data.SubstringRepository
+import com.paranid5.mvc_regex.data.MatchDataSource
+import com.paranid5.mvc_regex.data.SubstringsDataSource
+import com.paranid5.mvc_regex.domain.SubstringModel
 
 private val ENGLISH_OR_DIGITS = Regex("[a-zA-Zа-яА-Я0-9,.;\\-\\s]*")
 
 const val FULL_TAKE = -1
 
 class MainActivityViewModel : ViewModel() {
-    private var textInput = ""
+
+    // ----------------- Text Input -----------------
+
+    private var hasErrorInTextInput = false
 
     fun validateAndStoreTextInput(
         text: String,
         activity: MainActivity
-    ): Boolean = validateTextInput(text).also {
-        textInput = text
-        hasErrorInInput = updatedErrorState(it)
-        activity revalidateButtonEnabled it
+    ): Boolean {
+        if (!validateTextInput(text)) {
+            hasErrorInTextInput = true
+            updateErrorStateWithButton(activity)
+            return false
+        }
+
+        MatchDataSource.updateModel {
+            it.copy(textInput = text)
+        }
+
+        hasErrorInTextInput = false
+        updateErrorStateWithButton(activity)
+        return true
     }
 
-    private var regexInput = ".*"
+    // ----------------- Regex Input -----------------
 
-    private inline val regex
-        get() = regexInput.toRegex()
+    private var hasErrorInRegexInput = false
 
     fun validateAndStoreRegexInput(
         regex: String,
         activity: MainActivity
-    ): Boolean = validateRegexInput(regex).also {
-        regexInput = regex
-        hasErrorInInput = updatedErrorState(it)
-        activity revalidateButtonEnabled it
+    ): Boolean {
+        if (!validateRegexInput(regex)) {
+            hasErrorInRegexInput = true
+            updateErrorStateWithButton(activity)
+            return false
+        }
+
+        MatchDataSource.updateModel {
+            it.copy(regex = regex.toRegex())
+        }
+
+        hasErrorInRegexInput = false
+        updateErrorStateWithButton(activity)
+        return true
     }
 
-    private var takeInput = ""
+    // ----------------- Take Input -----------------
 
-    private inline val take
-        get() = parseTakeInput(takeInput)
+    private var hasErrorInTakeInput = false
 
-    fun validateAndSetTakeInput(
+    fun validateAndStoreTakeInput(
         take: String,
         activity: MainActivity
-    ): Boolean = validateTakeInput(take).also {
-        takeInput = take
-        hasErrorInInput = updatedErrorState(it)
-        activity revalidateButtonEnabled it
+    ): Boolean {
+        if (!validateTakeInput(take)) {
+            hasErrorInTakeInput = true
+            updateErrorStateWithButton(activity)
+            return false
+        }
+
+        MatchDataSource.updateModel {
+            it.copy(takeSubstrings = parseTakeInput(take))
+        }
+
+        hasErrorInTakeInput = false
+        updateErrorStateWithButton(activity)
+        return true
     }
 
-    private var hasErrorInInput = false
-
-    private fun updatedErrorState(isErrorInInput: Boolean): Boolean =
-        if (isErrorInInput) hasErrorInInput else false
+    // ----------------- Substring match -----------------
 
     infix fun matchSubstringsAndRevalidate(activity: MainActivity) {
-        SubstringRepository.matchSubstrings(take, regex, textInput)
-        activity.revalidateMatches()
+        val (shownMatchesList, totalMatches) = matchSubstrings()
+        SubstringsDataSource.updateModel(shownMatchesList, totalMatches)
+        updateMatches(activity)
+    }
+
+    private fun matchSubstrings(): Pair<List<SubstringModel>, Int>  {
+        val (takeSubstrings, regex, textInput) = MatchDataSource.model
+
+        val allMatches = regex
+            .findAll(textInput)
+            .flatMap(MatchResult::groupValues)
+            .filter(String::isNotBlank)
+            .mapIndexed { index, match -> SubstringModel(match, index) }
+            .toList()
+
+        return allMatches.take(takeSubstrings) to allMatches.size
+    }
+
+    // ----------------- View Update -----------------
+
+    private inline val shownMatchesList: List<SubstringModel>
+        get() = SubstringsDataSource.shownMatchesList
+
+    private inline val totalMatches: Int
+        get() = SubstringsDataSource.totalMatches
+
+    private inline val hasErrorInInput
+        get() = hasErrorInTextInput || hasErrorInRegexInput || hasErrorInTakeInput
+
+    private fun updateErrorStateWithButton(activity: MainActivity): Unit =
+        activity revalidateButtonEnabled !hasErrorInInput
+
+    fun updateMatches(activity: MainActivity) {
+        if (totalMatches > 0)
+            activity.revalidateMatches(shownMatchesList, totalMatches)
     }
 }
 

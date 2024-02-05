@@ -10,14 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.paranid5.mvc_regex.data.SubstringRepository
-import com.paranid5.mvc_regex.ui.FindButton
-import com.paranid5.mvc_regex.ui.MatchesAdapter
-import com.paranid5.mvc_regex.ui.MatchesFound
-import com.paranid5.mvc_regex.ui.MatchesView
-import com.paranid5.mvc_regex.ui.RegexInput
-import com.paranid5.mvc_regex.ui.TakeInput
-import com.paranid5.mvc_regex.ui.TextInput
+import com.paranid5.mvc_regex.domain.SubstringModel
+import com.paranid5.mvc_regex.views.FindButton
+import com.paranid5.mvc_regex.views.MatchesAdapter
+import com.paranid5.mvc_regex.views.MatchesFoundText
+import com.paranid5.mvc_regex.views.MatchesList
+import com.paranid5.mvc_regex.views.RegexInput
+import com.paranid5.mvc_regex.views.TakeInput
+import com.paranid5.mvc_regex.views.TextInput
 
 class MainActivity : AppCompatActivity() {
     private lateinit var textInput: EditText
@@ -43,9 +43,11 @@ class MainActivity : AppCompatActivity() {
         initViews()
     }
 
-    fun revalidateMatches() {
-        val (matchesList, totalMatches) = SubstringRepository.matchedSubstringsAndTotal
-        matchesAdapter submitList matchesList
+    fun revalidateMatches(
+        shownMatchesList: List<SubstringModel>,
+        totalMatches: Int
+    ) {
+        matchesAdapter submitList shownMatchesList
         matchesFound.text = getString(R.string.matches_found, totalMatches)
     }
 
@@ -58,9 +60,13 @@ class MainActivity : AppCompatActivity() {
         regexInput = RegexInput(viewModel)
         takeInput = TakeInput(viewModel)
         findButton = FindButton(viewModel)
-        matchesView = MatchesView(matchesAdapter)
-        matchesFound = MatchesFound()
+        matchesView = MatchesList(matchesAdapter)
+        matchesFound = MatchesFoundText()
+        initMatches()
     }
+
+    private fun initMatches(): Unit =
+        viewModel.updateMatches(this)
 }
 
 private fun MainActivity.applyInsets() =

@@ -1,4 +1,4 @@
-package com.paranid5.mvc_regex.ui
+package com.paranid5.mvc_regex.views
 
 import android.graphics.Rect
 import android.view.View
