@@ -1,4 +1,4 @@
-package com.paranid5.mvc_regex.use_cases
+package com.paranid5.mvc_regex.domain.use_cases
 
 import com.paranid5.mvc_regex.data.MatchDataSource
 import javax.inject.Inject

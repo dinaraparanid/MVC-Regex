@@ -1,4 +1,4 @@
-package com.paranid5.mvc_regex
+package com.paranid5.mvc_regex.presentation
 
 import android.os.Bundle
 import android.widget.Button
@@ -8,14 +8,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.paranid5.mvc_regex.MainPresenter
+import com.paranid5.mvc_regex.R
 import com.paranid5.mvc_regex.domain.SubstringModel
-import com.paranid5.mvc_regex.views.FindButton
-import com.paranid5.mvc_regex.views.MatchesAdapter
-import com.paranid5.mvc_regex.views.MatchesFound
-import com.paranid5.mvc_regex.views.MatchesView
-import com.paranid5.mvc_regex.views.RegexInput
-import com.paranid5.mvc_regex.views.TakeInput
-import com.paranid5.mvc_regex.views.TextInput
+import com.paranid5.mvc_regex.presentation.views.FindButton
+import com.paranid5.mvc_regex.presentation.views.MatchesAdapter
+import com.paranid5.mvc_regex.presentation.views.MatchesFound
+import com.paranid5.mvc_regex.presentation.views.MatchesView
+import com.paranid5.mvc_regex.presentation.views.RegexInput
+import com.paranid5.mvc_regex.presentation.views.TakeInput
+import com.paranid5.mvc_regex.presentation.views.TextInput
 import dagger.hilt.android.AndroidEntryPoint
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter

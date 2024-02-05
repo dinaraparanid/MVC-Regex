@@ -1,4 +1,4 @@
-package com.paranid5.mvc_regex.views
+package com.paranid5.mvc_regex.presentation.views
 
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +19,7 @@ class MatchesAdapter : RecyclerView.Adapter<MatchesAdapter.MatchesViewHolder>() 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchesViewHolder =
         LayoutInflater.from(parent.context)
             .inflate(R.layout.item_substring, parent, false)
-            .let(::MatchesViewHolder)
+            .let(MatchesAdapter::MatchesViewHolder)
 
     override fun getItemCount(): Int =
         currentList.size

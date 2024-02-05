@@ -1,10 +1,10 @@
-package com.paranid5.mvc_regex
+package com.paranid5.mvc_regex.domain
 
 import com.paranid5.mvc_regex.domain.SubstringModel
-import com.paranid5.mvc_regex.use_cases.MatchSubstringsUseCase
-import com.paranid5.mvc_regex.use_cases.RegexInputUseCase
-import com.paranid5.mvc_regex.use_cases.TakeInputUseCase
-import com.paranid5.mvc_regex.use_cases.TextInputUseCase
+import com.paranid5.mvc_regex.domain.use_cases.MatchSubstringsUseCase
+import com.paranid5.mvc_regex.domain.use_cases.RegexInputUseCase
+import com.paranid5.mvc_regex.domain.use_cases.TakeInputUseCase
+import com.paranid5.mvc_regex.domain.use_cases.TextInputUseCase
 import javax.inject.Inject
 
 class InputInteractor @Inject constructor(

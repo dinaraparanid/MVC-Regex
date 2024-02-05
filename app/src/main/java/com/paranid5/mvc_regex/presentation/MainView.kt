@@ -1,4 +1,4 @@
-package com.paranid5.mvc_regex
+package com.paranid5.mvc_regex.presentation
 
 import com.paranid5.mvc_regex.domain.SubstringModel
 import moxy.MvpView

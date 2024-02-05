@@ -1,7 +1,7 @@
-package com.paranid5.mvc_regex.views
+package com.paranid5.mvc_regex.presentation.views
 
 import android.widget.Button
-import com.paranid5.mvc_regex.MainActivity
+import com.paranid5.mvc_regex.presentation.MainActivity
 import com.paranid5.mvc_regex.MainPresenter
 import com.paranid5.mvc_regex.R
 

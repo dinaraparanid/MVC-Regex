@@ -1,6 +1,8 @@
 package com.paranid5.mvc_regex
 
+import com.paranid5.mvc_regex.domain.InputInteractor
 import com.paranid5.mvc_regex.domain.SubstringModel
+import com.paranid5.mvc_regex.presentation.MainView
 import moxy.MvpPresenter
 import javax.inject.Inject
 
