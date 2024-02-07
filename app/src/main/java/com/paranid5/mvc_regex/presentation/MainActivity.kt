@@ -72,7 +72,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     private fun initMatches(): Unit =
-        presenter.updateMatches()
+        presenter.initMatchesView()
 }
 
 private fun MainActivity.applyInsets() =
